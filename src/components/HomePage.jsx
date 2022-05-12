@@ -54,7 +54,7 @@ function Weather() {
             autoFocus
             className="form-control me-2"
             type="search"
-            placeholder="Search"
+            placeholder="Search a new city!"
             aria-label="Search"
             onChange={(e) => setCityState(e.target.value)}
           />
