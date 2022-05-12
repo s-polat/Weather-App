@@ -3,17 +3,17 @@ import WeatherOfCity from "./WeatherOfCity";
 import { DataStore } from "../DataStore";
 
 function Weather() {
-  const { isLogin, setIsLogin } = useContext(DataStore);
+  const { setIsLogin } = useContext(DataStore);
+
   const [cityState, setCityState] = useState("london");
 
-  const [findCity, setFindCity]= useState(true)
+  const [isCityFound, setIsCityFound] = useState(true);
 
-  const [weatherData, setWeatherData] = useState({main: { temp: 0, humidity: "", pressure: "" },
-  name: "",
-  weather: [{ description: "", icon: "", main: "" }],
-  wind: { speed: "" }});
-
-  console.log(cityState);
+  const [weatherData, setWeatherData] = useState({
+    main: { temp: 0, humidity: "" },
+    name: "",
+    weather: [{ description: "", icon: "", main: "" }],
+  });
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -22,15 +22,11 @@ function Weather() {
     );
 
     const getWeatherData = await result.json();
-    console.log(getWeatherData);
-    setWeatherData(getWeatherData);
     if (getWeatherData.message) {
-      /* alert("City can't find!"); */
-      setFindCity(false)
-      console.log(findCity);
+      setIsCityFound(false);
     } else {
-      console.log(weatherData);
-      setFindCity(true)
+      setIsCityFound(true);
+      setWeatherData(getWeatherData);
     }
   };
 
@@ -45,13 +41,13 @@ function Weather() {
     londonWeather();
   }, []);
 
-  
-
   return (
     <div className="container">
-      <header className=" d-flex justify-content-center mt-5">
+      <header className=" d-flex flex-column justify-content-center align-items-center mt-4">
+        <h1 className="mb-5">Weather-App</h1>
+
         <form
-          className="d-flex  justify-content-center align-items-center"
+          className="d-flex justify-content-center align-items-center"
           onSubmit={submitHandler}
         >
           <input
@@ -62,20 +58,31 @@ function Weather() {
             aria-label="Search"
             onChange={(e) => setCityState(e.target.value)}
           />
+
           <button className="btn btn-outline-success " type="submit">
             Search
           </button>
         </form>
       </header>
-      <main className="d-flex justify-content-center align-items-center mt-5">
-        {!findCity?<h3>City can't find! </h3>:<WeatherOfCity weatherData={weatherData}/>}
 
+      <main className="d-flex justify-content-center align-items-center mt-5">
+        {!isCityFound ? (
+          <h3>City can't find! </h3>
+        ) : (
+          <WeatherOfCity weatherData={weatherData} />
+        )}
       </main>
       <div className="d-flex justify-content-center align-items-center mt-5">
-
-        <button className="btn btn-warning" onClick={()=>{localStorage.removeItem("weatherUser"); setIsLogin(false)}}>Logout</button>
+        <button
+          className="btn btn-warning"
+          onClick={() => {
+            localStorage.removeItem("weatherUser");
+            setIsLogin(false);
+          }}
+        >
+          Logout
+        </button>
       </div>
-      
     </div>
   );
 }

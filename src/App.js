@@ -6,22 +6,19 @@ import { Routes, Route } from "react-router-dom";
 import { DataStore } from "./DataStore";
 
 function App() {
-  
-  const[isLogin, setIsLogin]= useState(false)
- 
+  const [isLogin, setIsLogin] = useState(false);
 
   const user = localStorage.getItem("weatherUser");
 
-  window.onbeforeunload = function() {
+  window.onbeforeunload = function () {
     localStorage.removeItem("weatherUser");
-    return '';
+    return "";
   };
   return (
     <div className="App">
-      <DataStore.Provider value={{isLogin, setIsLogin  }}>
+      <DataStore.Provider value={{ isLogin, setIsLogin }}>
         <Routes>
-          <Route path="/" element={user ? <HomePage/> : <Login />} />
-
+          <Route path="/" element={user ? <HomePage /> : <Login />} />
         </Routes>
       </DataStore.Provider>
     </div>

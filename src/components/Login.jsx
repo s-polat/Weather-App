@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { DataStore } from "../DataStore";
 
 function Login() {
-  const { isLogin, setIsLogin } = useContext(DataStore);
+  const { setIsLogin } = useContext(DataStore);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -16,10 +16,10 @@ function Login() {
     setIsLogin(true)
   };
 
-  console.log(email, password);
   return (
-    <div className="d-flex justify-content-center align-items-center">
-      <div className="card p-4 mt-5 ">
+    <div className="d-flex flex-column justify-content-center align-items-center">
+      <h1 className="mt-4">Weather-App</h1>
+      <div className="card p-4 mt-2"> 
         <form onSubmit={submitHandler}>
           <div className="mb-3">
             <h2>Login</h2>

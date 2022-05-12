@@ -3,16 +3,33 @@ import React from 'react'
 function WeatherOfCity({weatherData}) {
   return (
     <div>
-        <div class="card" style={{ width: "18rem" }}>
+        <div className="card" style={{ width: "18rem" }}>
         <img style={{width:"200px"}} src={`http://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`} className="card-img-top weather-icon m-auto" alt="weather icon" />
-          <div class="card-body">
-            <h3 class="card-title">{weatherData.name}</h3>
+          <div className="card-body">
+            <h3 className="card-title">{weatherData.name}</h3>
            
           </div>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">Date: {new Date().toLocaleDateString()}</li>
-            <li class="list-group-item">Temperature: {weatherData.main.temp.toFixed(0)} °C</li>
-            <li class="list-group-item">Humidity: {weatherData.main.humidity}%</li>
+
+          
+          <ul className="list-group list-group-flush">
+            <li className="list-group-item">
+              <dl className='row' style={{marginBottom:"-10px"}}>
+                <dd className="col-6">Date:</dd>
+                <dt className="col-6">{new Date().toLocaleDateString()}</dt>
+              </dl>
+             </li>
+            <li className="list-group-item">
+            <dl className='row' style={{marginBottom:"-10px"}}>
+                <dd className="col-6">Temperature:</dd>
+                <dt className="col-6">{weatherData.main.temp.toFixed(0)} °C</dt>
+              </dl>
+             </li>
+            <li className="list-group-item">
+            <dl className='row' style={{marginBottom:"-10px"}}>
+                <dd className="col-6">Humidity:</dd>
+                <dt className="col-6">{weatherData.main.humidity}%</dt>
+              </dl>
+               </li>
           </ul>
         
         </div>
